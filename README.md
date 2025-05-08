@@ -142,8 +142,8 @@ Relación Clase-Instancia
 - **self** referencia a la instancia actual (contexto de ejecución)
 
 ### Atributos:
-Públicos: Accesibles directamente (instancia.atributo)
-Privados por convención: Nombres con _ inicial.
+- Públicos: Accesibles directamente (instancia.atributo)
+- Privados por convención: Nombres con _ inicial.
 
 ## Descomposición: Estrategia de Diseño
 Técnica para resolver problemas complejos mediante:
