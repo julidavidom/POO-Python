@@ -145,7 +145,6 @@ Relación Clase-Instancia
 Públicos: Accesibles directamente (instancia.atributo)
 Privados por convención: Nombres con _ inicial.
 
-
 ## Descomposición: Estrategia de Diseño
 Técnica para resolver problemas complejos mediante:
 
@@ -155,9 +154,68 @@ Técnica para resolver problemas complejos mediante:
 
 **Resultado:** Código mantenible y escalable donde cada clase gestiona una funcionalidad específica
 
+### Un ejemplo sencillo donde se aplica la descomposición
+
+```python
+class Car:
+    def __init__(self, model, brand, color):
+        self.model = model
+        self.brand = brand
+        self.color = color
+        self._status = 'stopped'  # Variable privada
+        self._engine = Engine(cylinders=4)  # Composición
+
+    def accelerate(self, mode='slow'):
+        if mode == 'fast':
+            self._engine.inject_gasoline(10)
+        else:
+            self._engine.inject_gasoline(3)
+        self._status = 'moving'
+
+class Engine:
+    def __init__(self, cylinders, type='gasoline'):
+        self.cylinders = cylinders
+        self.type = type
+        self._temperature = 0
+
+    def inject_gasoline(self, amount):
+        """Simula inyección de combustible"""
+        self._temperature += amount * 2  # Aumento simulado de temperatura
+```
+
 ## Abstracción: Simplificación Efectiva
 Principio que permite:
 
 - Enfoque selectivo: Priorizar información relevante para el contexto.
 - Ocultamiento técnico: Esconder detalles de implementación complejos.
 - Interfaces claras: Exponer métodos públicos para interacción controlada.
+
+### Un ejemplo sencillo donde se aplica la abstracción 
+```python
+class WashingMachine:
+
+    def __init__(self):
+        pass
+
+    def wash(self, temperature='hot'):
+        self.__fill_water_tank(temperature)
+        self.__add_soap()
+        self.__wash_clothes()
+        self.__spin()
+
+    def __fill_water_tank(self, water_temperature):
+        print(f'Filling tank with {water_temperature} water')
+
+    def __add_soap(self):
+        print(f'Adding soap')
+
+    def __wash_clothes(self):
+        print(f'Washing clothes')
+
+    def __spin(self):
+        print(f'Spinning')
+
+if __name__ == "__main__":
+    washer = WashingMachine()
+    washer.wash()
+```
