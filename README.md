@@ -118,3 +118,45 @@ hotel = Hotel(50, 20)
 hotel.anadir_huespedes(3)
 print(f"Ocupación: {hotel.ocupacion_actual()}")  # 3
 ```
+
+## Tipos de Datos Abstractos (Definidos por el Usuario)
+En Python, todo elemento es un objeto que pertenece a un tipo específico. Estos objetos permiten tres interacciones fundamentales:
+
+- Creación: Construcción del objeto mediante su inicialización
+- Manipulación: Operaciones que modifican su estado interno
+- Destrucción: Liberación de recursos (automática en Python)
+
+**Ventajas clave**
+- Descomposición: Dividir sistemas complejos en componentes manejables
+- Abstracción: Enfocarse en características esenciales ignorando detalles técnicos
+- Encapsulación: Proteger datos internos exponiendo solo interfaces controladas
+
+## Instancias: Objetos en Acción
+Relación Clase-Instancia
+Clase: Molde abstracto que define estructura y comportamiento
+Instancia: Objeto concreto creado desde la clase, con estado único
+
+### Características técnicas
+- El método __init__ inicializa el estado al crear la instancia
+- **self** referencia a la instancia actual (contexto de ejecución)
+
+### Atributos:
+Públicos: Accesibles directamente (instancia.atributo)
+Privados por convención: Nombres con _ inicial.
+
+
+## Descomposición: Estrategia de Diseño
+Técnica para resolver problemas complejos mediante:
+
+1. División modular: Crear componentes especializados
+2. Jerarquías lógicas: Organizar responsabilidades entre clases
+3. Acoplamiento mínimo: Reducir dependencias entre partes
+
+**Resultado:** Código mantenible y escalable donde cada clase gestiona una funcionalidad específica
+
+## Abstracción: Simplificación Efectiva
+Principio que permite:
+
+- Enfoque selectivo: Priorizar información relevante para el contexto.
+- Ocultamiento técnico: Esconder detalles de implementación complejos.
+- Interfaces claras: Exponer métodos públicos para interacción controlada.
