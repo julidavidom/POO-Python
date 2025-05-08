@@ -133,8 +133,9 @@ En Python, todo elemento es un objeto que pertenece a un tipo específico. Estos
 
 ## Instancias: Objetos en Acción
 Relación Clase-Instancia
-Clase: Molde abstracto que define estructura y comportamiento
-Instancia: Objeto concreto creado desde la clase, con estado único
+
+- Clase: Molde abstracto que define estructura y comportamiento
+- Instancia: Objeto concreto creado desde la clase, con estado único
 
 ### Características técnicas
 - El método __init__ inicializa el estado al crear la instancia
