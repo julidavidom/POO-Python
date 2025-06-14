@@ -1,16 +1,9 @@
 # Programación Orientada a Objetos (POO)
+Uno de los elementos más importantes de los lenguajes de programación es la utilización de clases para organizar programas en módulos y abstracciones de datos. La clave para entender la programación orientada a objetos es pensar en objetos como agrupaciones de datos y que metodos se usaran para que se operan dichos datos. 
 
-## Introducción a la POO
+Podemos representar a una persona con propiedades como nombre, edad, género,etc, y los comportamientos de dicha persona como caminar, cantar, comer, etc.
 
-La **Programación Orientada a Objetos** (POO) es un paradigma de programación que utiliza **clases** para organizar programas en módulos y abstracciones de datos. Según Grady Booch en su libro *Object-Oriented Analysis and Design with Applications*, "La POO es un método de implementación en el que los programas están organizados como colecciones cooperativas de objetos, cada uno de los cuales representa una instancia de alguna clase".
-
-### Conceptos Fundamentales
-- **Objetos**: Agrupaciones de datos (atributos) y métodos que operan sobre esos datos
-- **Clases**: Plantillas para crear objetos, definiendo estructura y comportamiento
-
-**Ejemplos del mundo real**:
 ```python
-# Ejemplo de clase Persona
 class Persona:
     def __init__(self, nombre, edad):
         self.nombre = nombre
@@ -19,7 +12,9 @@ class Persona:
     def caminar(self):
         print(f"{self.nombre} está caminando")
 
-# Ejemplo de clase Audífonos
+De la misma manera podemos representar unos audífonos con propiedades como su marca, tamaño, color, etc. y sus comportamientos como reproducir música, pausar y avanzar a la siguiente canción.
+
+```python
 class Audifonos:
     def __init__(self, marca, color):
         self.marca = marca
@@ -28,6 +23,14 @@ class Audifonos:
     def reproducir(self):
         print("Reproduciendo música...")
 ```
+
+Puesto de otra manera, la programación orientada a objetos nos permite modelar cosas reales y concretas del mundo y sus relaciones con otros objetos.
+
+- **Objetos**: Agrupaciones de datos (atributos) y métodos que operan sobre esos datos.
+- **Clases**: Plantillas para crear objetos, definiendo estructura y comportamiento.
+
+Hasta ahora, en las publicaciones y blogs anteriores  hemos utilizado programación orientada a objetos de manera implícita. Hemos utilizado los tipos lista y diccionario, entre muchos otros, así como los métodos asociados a dichos tipos. Los creadores de un lenguaje de programación sólo pueden diseñar una fracción muy pequeña de todas las funciones útiles (como abs, float, type, etc.), también pueden escribir una fracción muy pequeña de los tipos útiles (int, str, dict, list, etc.). Ya sabemos los mecanismos que nos permiten crear funciones, ahora veremos los mecanismos que nos permiten crear nuevos tipos o clases.
+
 ## Historia y Evolución (Contexto Académico)
 La POO tiene sus raíces en varios hitos importantes:
 
@@ -38,17 +41,18 @@ La POO tiene sus raíces en varios hitos importantes:
 
 Según un estudio de IEEE de 2020, el 86% de los lenguajes modernos soportan POO como paradigma principal, demostrando su relevancia actual.
 
-## Clases en Python: De lo Primitivo a lo Complejo
-Limitaciones de estructuras simples
+## Clases en Python
+Las estructuras primitivas con las que hemos trabajado hasta ahora nos permiten definir cosas sencillas, como el costo de algo, el nombre de un usuario, las veces que debe correr un bucle, etc. Sin embargo, existen ocasiones cuando necesitamos definir estructuras más complejas, por ejemplo un hotel. Podríamos utilizar dos listas: una para definir los cuartos y una segunda para definir si el cuarto se encuentra ocupado o no.Este tipo de organización rápidamente se sale de control. ¿Qué tal que quisieramos añadir más propiedades, cómo si el cuarto ya fue aseado o no? ¿Si el cuarto tiene cama doble o sencilla?. Esto nos lleva a una falta fuerte de organización y es justamente el punto que justifica la existencia de clases.
+
+### Ejemplo hotel sin Clases
 ```python
-# Enfoque problemático sin POO
 cuartos_de_hotel = [101, 102, 103]
 cuarto_ocupado = [True, False, False]
 cuarto_aseado = [False, True, True]
 ```
-Este enfoque viola el principio DRY (Don't Repeat Yourself) y dificulta el mantenimiento.
+Las clases nos permiten crear nuevos tipos que contienen información arbitraria sobre un objeto. En el caso del hotel, podríamos crear dos clases Hotel() y Cuarto() que nos permitiera dar seguimiento a las propiedades como número de cuartos, ocupación, aseo, tipo de habitación, etc.
 
-**Solución con Clases**
+### Ejemplo Hotel con Clases
 ```python
 class Habitacion:
     def __init__(self, numero, ocupada=False, aseada=True):
@@ -64,37 +68,41 @@ class Hotel:
     def agregar_habitacion(self, numero):
         self.habitaciones.append(Habitacion(numero))
 ```
+Es importante resaltar que las clases sólo proveen estructura. Son un molde con el cual podemos construir objetos específicos. La clase señala las propiedades que los hoteles que modelemos tendrán, pero no es ningún hotel específico. Para eso necesitamos las instancias.
 
-## Instancias y Atributos: La Esencia de la POO
-Diferencias Clave
-```markdown
-| Clase                 | Instancia               |
-|:----------------------|:------------------------|
-| Plantilla/Blueprint   | Objeto concreto         |
-| Define estructura     | Contiene datos reales   |
-| Se define una vez     | Se crean múltiples veces|
+## Instancias
+Mientras que las clases proveen la estructura, las instancias son los objetos reales que creamos en nuestro programa: un hotel llamado PlatziHotel o Hilton. Otra forma de pensarlo es que las clases son como un formulario y una vez que se llena cada copia del formulario tenemos las instancias que pertenecen a dicha clase. Cada copia puede tener datos distintos, al igual que cada instancia es distinta de las demás (aunque todas pertenecen a una misma clase).
+
+Para definir una clase, simplemente utilizamos el keyword class.
+
+```python  
+    class Hotel:
+        pass
 ```
-
-```python
-# Creación de instancias
-mi_hotel = Hotel("Platzi Suites")
-tu_hotel = Hotel("Hilton")
-
-print(type(mi_hotel))  # <class '__main__.Hotel'>
-print(mi_hotel.nombre) # Platzi Suites
+Una vez que tenemos una clase llamada Hotel podemos generar una instancia llamando al constructor de la clase.
+ 
+```python  
+ hotel = Hotel()
 ```
-## Atributos y Métodos: Comportamiento del Objeto
-Método**__init__**
+### Atributos de la instancia:
+
+Todas las clases crean objetos y todos los objetos tienen atributos. Utilizamos el método especial ¨**__init__** para definir el estado inicial de nuestra instancia. 
+Recibe como primer parámetro obligatorio self (que es simplemente una referencia a la instancia).
 
 ```python
 class Hotel:
     def __init__(self, capacidad, estacionamientos):
         self.capacidad_maxima = capacidad
         self.estacionamientos = estacionamientos
-        self.huespedes = 0  # Atributo de estado
+        self.huespedes = 0
+
+hotel = Hotel(numero_maximo_de_huespedes=50, lugares_de_estacionamiento=20)
+print(hotel.lugares_de_estacionamiento) # 20
 ```
 
-## Métodos de Instancia: Comportamientos Clave
+## Métodos de Instancia
+Mientras que los atributos de la instancia describen lo que representa el objeto, los métodos de instancia nos indican qué podemos hacer con las instancias de dicha clase y normalmente operan en los mencionados atributos. Los métodos son equivalentes a funciones dentro de la definición de la clase, pero todos reciben self como primer argumento.
+
 ```python
 class Hotel:
     # ... __init__ anterior
@@ -113,37 +121,22 @@ class Hotel:
         """Devuelve la ocupación actual"""
         return self.huespedes
 
-# Uso
 hotel = Hotel(50, 20)
 hotel.anadir_huespedes(3)
 print(f"Ocupación: {hotel.ocupacion_actual()}")  # 3
 ```
 
-## Tipos de Datos Abstractos (Definidos por el Usuario)
+## Tipos de Datos Abstractos
 En Python, todo elemento es un objeto que pertenece a un tipo específico. Estos objetos permiten tres interacciones fundamentales:
 
-- Creación: Construcción del objeto mediante su inicialización
-- Manipulación: Operaciones que modifican su estado interno
-- Destrucción: Liberación de recursos (automática en Python)
+- Creación: Construcción del objeto mediante su inicialización.
+- Manipulación: Operaciones que modifican su estado interno.
+- Destrucción: Liberación de recursos (automática en Python).
 
 **Ventajas clave**
-- Descomposición: Dividir sistemas complejos en componentes manejables
-- Abstracción: Enfocarse en características esenciales ignorando detalles técnicos
-- Encapsulación: Proteger datos internos exponiendo solo interfaces controladas
-
-## Instancias: Objetos en Acción
-Relación Clase-Instancia
-
-- Clase: Molde abstracto que define estructura y comportamiento
-- Instancia: Objeto concreto creado desde la clase, con estado único
-
-### Características técnicas
-- El método __init__ inicializa el estado al crear la instancia
-- **self** referencia a la instancia actual (contexto de ejecución)
-
-### Atributos:
-- Públicos: Accesibles directamente (instancia.atributo)
-- Privados por convención: Nombres con _ inicial.
+- Descomposición: Dividir sistemas complejos en componentes manejables.
+- Abstracción: Enfocarse en características esenciales ignorando detalles técnicos.
+- Encapsulación: Proteger datos internos exponiendo solo interfaces controladas.
 
 ## Descomposición: Estrategia de Diseño
 Técnica para resolver problemas complejos mediante:
