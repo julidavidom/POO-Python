@@ -229,7 +229,6 @@ Los decoradores son una forma sencilla de llamar funciones de orden mayor, es de
 
 Un ejemplo de esto son las llantas de un automóvil si les colocas cadenas para la nieve: aún puede andar y además extiende su funcionalidad para conducirse en otros terrenos.
 
-
 ## Funciones cómo objetos de primera-clase
 Otro concepto importante a tener en cuenta es que en Python las funciones son objetos de primera-clase, es decir  que pueden ser pasados y utilizados cómo argumentos al igual que cualquier otro objeto (strings, enteros, flotantes, listas, etc.).
 
@@ -257,28 +256,28 @@ consume_funciones(estudiemos_juntos)
 Asi, la función consume_funciones() se ejecuta, mientras que la función presentarse y estudiemos_juntos son solo para hacer referencia.
 
 ## Funciones anidadas
-    Al igual que los condicionales y bucles también puedes colocar funciones dentro de otra función.
+Al igual que los condicionales y bucles también puedes colocar funciones dentro de otra función.
+Toma un minuto para analizar el siguiente código.
 
-    Toma un minuto para analizar el siguiente código.
+```python
+def funcion_mayor():
+    print("Esta es una función mayor y su mensaje de salida.")
 
-        def funcion_mayor():
-            print("Esta es una función mayor y su mensaje de salida.")
+    def librerias():
+        print("Algunas librerías de Python son: Scikit-learn, NumPy y TensorFlow.")
 
-            def librerias():
-                print("Algunas librerías de Python son: Scikit-learn, NumPy y TensorFlow.")
+    def frameworks():
+        print("Algunos frameworks de Python son: Django, Dash y Flask.")
+```
+                
+Si llamamos a la función funcion_mayor tendremos la siguiente salida:
 
-            def frameworks():
-                print("Algunos frameworks de Python son: Django, Dash y Flask.")
+```
+funcion_mayor()
+Esta es una función mayor y su mensaje de salida.
+Algunos frameworks de Python son: Django, Dash y Flask.
+Algunas librerías de Python son: Scikit-learn, NumPy y TensorFlow.
+```
 
-            frameworks()
-            librerias()
-
-    Si llamamos a la función funcion_mayor tendremos la siguiente salida:
-
-        >>> funcion_mayor()
-        Esta es una función mayor y su mensaje de salida.
-        Algunos frameworks de Python son: Django, Dash y Flask.
-        Algunas librerías de Python son: Scikit-learn, NumPy y TensorFlow.
-
-    Debemos considerar que las funciones anidadas dentro de funcion_mayor no se ejecutan sino hasta que se llama esta primera, siendo muestra del scope o alcance de las funciones y si las llamamos obtendremos un error.
+Debemos considerar que las funciones anidadas dentro de funcion_mayor no se ejecutan sino hasta que se llama esta primera, siendo muestra del scope o alcance de las funciones y si las llamamos obtendremos un error.
 
