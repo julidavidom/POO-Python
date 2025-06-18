@@ -183,6 +183,7 @@ Principio que permite:
 - Ocultamiento técnico: Esconder detalles de implementación complejos.
 - Interfaces claras: Exponer métodos públicos para interacción controlada.
 
+
 ### Un ejemplo sencillo donde se aplica la abstracción 
 ```python
 class WashingMachine:
@@ -212,3 +213,72 @@ if __name__ == "__main__":
     washer = WashingMachine()
     washer.wash()
 ```
+## Analisando un poco de lo anterior 
+- Mientras que la clase es un molde, los objetos creados se les conoce como iantancias.
+- Cuando se crea una instancia, se ejecuta el metodo __init__
+- Todos los metodos de una clase reciben implicitamente como primer parameto self
+- Los atributos de clase nos permiten
+    - Representar datos
+    - Procedimientos para interactuar con los metodos.
+    - Mecanismos para esconder la representacion interna
+- Se accede a los atributos con la notacion de punto .
+- Puede tener atributos privados. Por convencion comiensan con _
+
+## FUNCIONES: BASES DE LOS DECORADORES
+Los decoradores son una forma sencilla de llamar funciones de orden mayor, es decir, funciones que toman otra función cómo parámetro y/o retornan otra función como resultado. De esta forma un decorador añade  capacidades a una función sin modificarla.
+
+Un ejemplo de esto son las llantas de un automóvil si les colocas cadenas para la nieve: aún puede andar y además extiende su funcionalidad para conducirse en otros terrenos.
+
+
+## Funciones cómo objetos de primera-clase
+Otro concepto importante a tener en cuenta es que en Python las funciones son objetos de primera-clase, es decir  que pueden ser pasados y utilizados cómo argumentos al igual que cualquier otro objeto (strings, enteros, flotantes, listas, etc.).
+
+Un ejemplo donde se definen 3 diferentes funciones que trabajan de manera conjunta
+
+```python
+def presentarse(nombre):
+    return f"Me llamo {nombre}"
+
+def estudiemos_juntos(nombre):
+    return f"¡Hey {nombre}, aprendamos Python!"
+
+def consume_funciones(funcion_entrante):
+    return funcion_entrante("David")
+```
+Las primeras dos funciones son obvias en su resultado, donde se mostrarán un mensaje con el valor de la variable nombre. La tercer función puede ser más compleja de predecir ya que toma una función cómo entrada,  veamos que pasa cuando colocamos una función cómo atributo.
+
+```
+consume_funciones(presentarse)
+'Me llamo David'
+
+consume_funciones(estudiemos_juntos)
+'¡Hey David, aprendamos Python!'
+```
+Asi, la función consume_funciones() se ejecuta, mientras que la función presentarse y estudiemos_juntos son solo para hacer referencia.
+
+## Funciones anidadas
+    Al igual que los condicionales y bucles también puedes colocar funciones dentro de otra función.
+
+    Toma un minuto para analizar el siguiente código.
+
+        def funcion_mayor():
+            print("Esta es una función mayor y su mensaje de salida.")
+
+            def librerias():
+                print("Algunas librerías de Python son: Scikit-learn, NumPy y TensorFlow.")
+
+            def frameworks():
+                print("Algunos frameworks de Python son: Django, Dash y Flask.")
+
+            frameworks()
+            librerias()
+
+    Si llamamos a la función funcion_mayor tendremos la siguiente salida:
+
+        >>> funcion_mayor()
+        Esta es una función mayor y su mensaje de salida.
+        Algunos frameworks de Python son: Django, Dash y Flask.
+        Algunas librerías de Python son: Scikit-learn, NumPy y TensorFlow.
+
+    Debemos considerar que las funciones anidadas dentro de funcion_mayor no se ejecutan sino hasta que se llama esta primera, siendo muestra del scope o alcance de las funciones y si las llamamos obtendremos un error.
+
