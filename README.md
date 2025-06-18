@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/9c0db69a-d3f2-4c58-8077-bb4927c1da2a)# Programación Orientada a Objetos (POO)
+# Programación Orientada a Objetos (POO)
 Uno de los elementos más importantes de los lenguajes de programación es la utilización de clases para organizar programas en módulos y abstracciones de datos. La clave para entender la programación orientada a objetos es pensar en objetos como agrupaciones de datos y que metodos se usaran para que se operan dichos datos. 
 
 Podemos representar a una persona con propiedades como nombre, edad, género,etc, y los comportamientos de dicha persona como caminar, cantar, comer, etc.
