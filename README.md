@@ -11,6 +11,7 @@ class Persona:
     
     def caminar(self):
         print(f"{self.nombre} está caminando")
+```
 
 De la misma manera podemos representar unos audífonos con propiedades como su marca, tamaño, color, etc. y sus comportamientos como reproducir música, pausar y avanzar a la siguiente canción.
 
