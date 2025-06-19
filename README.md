@@ -312,7 +312,7 @@ Todo lo que sucede se conoce en programación como metaprogramación (metaprogra
 
 ### Mejorando la sintaxis
 
-Definitivamente la forma en que decoramos la función es complejo, pero afortunadamente Python lo tiene en cuenta y podemos utilizar decoradores con el símbolo @. Volviendo al mismo ejemplo de funcion_decoradora(), podemos simplificarlo así:
+Definitivamente la forma en que decoramos la función es complejo, pero afortunadamente Python lo tiene en cuenta y podemos utilizar decoradores con el símbolo **@**. Volviendo al mismo ejemplo de funcion_decoradora(), podemos simplificarlo así:
 
 ```python
 @funcion_decoradora
@@ -320,20 +320,23 @@ def zumbido():
     print("Buzzzzzz")
 ```
 
-¿Qué son getters y setters?
+## ¿Qué son getters y setters?
 
-    A diferencia de otros lenguajes de programación, en Python los getters y setters tienen el objetivo de asegurar el encapsulamiento de datos. Cómo habrás visto, si declaramos una variable privada en Python al colocar un guión bajo al inicio de esta (_) y normalmente son utilizados para: añadir lógica de validación al momento de obtener y definir un valor y, para evitar el acceso directo al campo de una clase.
-    La realidad es que en Python no existen variables netamente privadas, pues aunque se declaren con un guión bajo podemos seguir accediendo a estas. En Programación Orientada a Objetos esto es peligroso, pues podemos alterar el método de alguna clase y tener efectos colaterales que afecten la lógica de nuestra aplicación.
+En Python los getters y setters tienen el objetivo de asegurar el encapsulamiento de datos. Un concepto inportante previo a los metodos especificos son las variables privadas, que se definen en Python colocando un guion bajo al inicio de estas (_), normalmente son utilizadqs para añadir lógica de validación al momento de obtener y definir un valor y, para evitar el acceso directo al campo de una clase.
 
-    - Clases sin getters y setters
-        Veamos un ejemplo con una clase que almacena un dato de distancia recorrida en millas (mi) y lo convierte a kilómetros (km):
+La realidad es que en Python no existen variables netamente privadas, pues aunque se declaren con un guión bajo podemos seguir accediendo a estas. En Programación Orientada a Objetos esto es peligroso, pues podemos alterar el método de alguna clase y tener efectos colaterales que afecten la lógica de nuestra aplicación.
 
-            class Millas:
-                def __init__(self, distancia = 0):
-                    self.distancia = distancia
+### Clases sin getters y setters
 
-                def convertir_a_kilometros(self):
-                    return (self.distancia * 1.609344)
+Veamos un ejemplo con una clase que almacena un dato de distancia recorrida en millas (mi) y lo convierte a kilómetros (km):
+
+```python
+class Millas:
+    def __init__(self, distancia = 0):
+        self.distancia = distancia
+
+    def convertir_a_kilometros(self):
+        return (self.distancia * 1.609344)
 
          Ahora creemos un objeto que haga referencia a un viaje:
 
@@ -350,117 +353,109 @@ def zumbido():
             # Obtenemos el método convertir_a_kilometros
             >>> print(avion.convertir_a_kilometros())
             321.8688
+```
+
+### Utilizando getters y setters
+
+Incluyamos un par de métodos para obtener la distancia y otro para que no acepte valores inferiores a cero, pues no tendría sentido que un vehículo recorra una distancia negativa. Estos son métodos getters y setters:
+
+```python
+class Millas:
+    def __init__(self, distancia = 0):
+        self.distancia = distancia
+
+    def convertir_a_kilometros(self):
+        return (self.distancia * 1.609344)
+
+    # Método getter
+    def obtener_distancia(self):
+        return self._distancia
+
+    # Método setter
+    def definir_distancia(self, valor):
+        if valor < 0:
+            raise ValueError("No es posible convertir distancias menores a 0.")
+        self._distancia = valor
+```
+
+El método getter obtendrá el valor de la distancia  y el método setter se encargará de añadir una restricción. También debemos notar cómo distancia fue reemplazado por _distancia, denotando que es una variable privada.
+
+Si probamos nuestro código funcionará, la desventaja es que cualquier aplicación que hayamos creado con una base similar deberá ser actualizada. Esto no es nada escalable si tenemos cientos o miles de líneas de código.
+
+### Función property()
+
+Esta función está incluida en Python, en particular crea y retorna la propiedad de un objeto. La propiedad  de un objeto posee los métodos getter(), setter() y del().
+En tanto la función tiene cuatro atributos: property(fget, fset, fsel, fdoc)
+
+- **fget** : trae el valor de un atributo.
+- **fset** : define el valor de un atributo.
+- **fdel** : elimina el valor de un atributo.
+- **fdoc** : crea un docstring por atributo.
+
+Veamos un ejemplo del mismo caso implementando la función property() :
+
+```python
+class Millas:
+    def __init__(self):
+        self._distancia = 0
+
+    def obtener_distancia(self):
+        print("Llamada al método getter")
+        return self._distancia
+
+    def definir_distancia(self, recorrido):
+        print("Llamada al método setter")
+        self._distancia = recorrido
+
+    def eliminar_distancia(self):
+        del self._distancia
+
+    distancia = property(obtener_distancia, definir_distancia, eliminar_distancia)
+
+    avion = Millas()
+    avion.distancia = 200
+    print(avion.distancia)
+
+    Llamada al método getter
+    Llamada al método setter
+    200
+```
+
+Aunque en este ejemplo hay una solo print, tenemos tres líneas como salida pues esta llama a los primeros dos métodos. Por lo que la propiedad distancia es una propiedad de objeto que ayuda a mantener el acceso de forma privada.
+
+### Decorador @property
+Este decorador es uno de varios con los que ya cuenta Python, el cual nos permite utilizar getters y setters para hacer más fácil  la implementación de la programación orientada a objetos en Python cambiando los métodos o atributos de las clases de forma que no modifiquemos el código.
+
+Pero mejor veamos un ejemplo en acción:
+
+```python
+class Millas:
+    def __init__(self):
+        self._distancia = 0
+
+    @property
+    def obtener_distancia(self):
+        print("Llamada al método getter")
+        return self._distancia
+
+   
+    @obtener_distancia.setter
+    def definir_distancia(self, valor)
+        if valor < 0:
+            raise ValueError("No es posible convertir distancias menores a 0.")
+        print("Llamada al método setter")
+        self._distancia = valor
 
 
-   -  Utilizando getters y setters
+avion = Millas()
+avion.distancia = 200
+print(avion.distancia)
+```
 
-        Incluyamos un par de métodos para obtener la distancia y otro para que no acepte valores inferiores a cero, pues no tendría sentido que un vehículo recorra una distancia negativa. Estos son métodos getters y setters:
-
-            class Millas:
-                def __init__(self, distancia = 0):
-                    self.distancia = distancia
-
-                def convertir_a_kilometros(self):
-                    return (self.distancia * 1.609344)
-
-                # Método getter
-                def obtener_distancia(self):
-                    return self._distancia
-
-                # Método setter
-                def definir_distancia(self, valor):
-                    if valor < 0:
-                        raise ValueError("No es posible convertir distancias menores a 0.")
-                    self._distancia = valor
-
-
-        El método getter obtendrá el valor de la distancia que y el método setter se encargará de añadir una restricción. También debemos notar cómo distancia fue reemplazado por _distancia, denotando que es una variable privada.
-
-        Si probamos nuestro código funcionará, la desventaja es que cualquier aplicación que hayamos creado con una base similar deberá ser actualizado. Esto no es nada escalable si tenemos cientos o miles de líneas de código.
-
-    - Función property()
-        Esta función está incluida en Python, en particular crea y retorna la propiedad de un objeto. La propiedad  de un objeto posee los métodos getter(), setter() y del().
-
-        En tanto la función tiene cuatro atributos: property(fget, fset, fsel, fdoc) :
-
-            fget : trae el valor de un atributo.
-            fset : define el valor de un atributo.
-            fdel : elimina el valor de un atributo.
-            fdoc : crea un docstring por atributo.
-
-    Veamos un ejemplo del mismo caso implementando la función property() :
-
-        class Millas:
-            def __init__(self):
-                self._distancia = 0
-
-            # Función para obtener el valor de _distancia
-            def obtener_distancia(self):
-                print("Llamada al método getter")
-                return self._distancia
-
-            # Función para definir el valor de _distancia
-            def definir_distancia(self, recorrido):
-                print("Llamada al método setter")
-                self._distancia = recorrido
-
-            # Función para eliminar el atributo _distancia
-            def eliminar_distancia(self):
-                del self._distancia
-
-            distancia = property(obtener_distancia, definir_distancia, eliminar_distancia)
-
-
-            # Creamos un nuevo objeto
-            avion = Millas()
-
-            # Indicamos la distancia
-            avion.distancia = 200
-
-            # Obtenemos su atributo distancia
-            >>> print(avion.distancia)
-            Llamada al método getter
-            Llamada al método setter
-            200
-
-
-    Aunque en este ejemplo hay una sola llamada a print, tenemos tres líneas como salida pues esta llama a los primeros dos métodos. Por lo que la propiedad distancia es una propiedad de objeto que ayuda a mantener el acceso de forma privada.
-
-   -  Decorador @property
-    Este decorador es uno de varios con los que ya cuenta Python, el cual nos permite utilizar getters y setters para hacer más fácil  la implementación de la programación orientada a objetos en Python cambiando los métodos o atributos de las clases de forma que no modifiquemos el código.
-
-    Pero mejor veamos un ejemplo en acción:
-
-        class Millas:
-            def __init__(self):
-                self._distancia = 0
-
-            # Función para obtener el valor de _distancia
-            # Usando el decorador property
-            @property
-            def obtener_distancia(self):
-                print("Llamada al método getter")
-                return self._distancia
-
-            # Función para definir el valor de _distancia
-            @obtener_distancia.setter
-            def definir_distancia(self, valor)
-                if valor < 0:
-                    raise ValueError("No es posible convertir distancias menores a 0.")
-                print("Llamada al método setter")
-                self._distancia = valor
-
-        # Creamos un nuevo objeto
-        avion = Millas()
-
-        # Indicamos la distancia
-        avion.distancia = 200
-
-        # Obtenemos su atributo distancia
-        >>> print(avion.distancia)
-        Llamada al método getter
-        Llamada al método setter
-        200
-
-    De esta manera usamos el decorador @property para utilizar getters y setters de una forma más prolija e incluimos una nueva funcionalidad a nuestro método definir_distancia() , al mismo tiempo protegemos el acceso a nuestras variables privadas y cumplimos  con el principio de encapsulación.
+```
+Llamada al método getter
+Llamada al método setter
+200
+```
+De esta manera usamos el decorador **@property** para utilizar getters y setters de una forma más prolija e incluimos una nueva funcionalidad a nuestro método definir_distancia(), al mismo tiempo protegemos el acceso a nuestras variables privadas y cumplimos  con el principio de encapsulación.
 
