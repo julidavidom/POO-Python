@@ -590,170 +590,177 @@ if __name__ == "__main__":
   - Dos bucles simples O(n) + O(n) = O(2n) → Simplificado a O(n)
   - Crecimiento proporcional al tamaño de entrada
 
-        def example_linear(n):
-            for i in range(n):
-                print(i)
-            for i in range(n):
-                print(i)
+```python
+def example_linear(n):
+    for i in range(n):
+        print(i)
+    for i in range(n):
+        print(i)
+```
 
-    Ejemplo 2: O(n²) - Complejidad cuadrática
-    - Bucle simple O(n) + bucle anidado O(n²) → O(n + n²) → O(n²)
-    - Termino dominante n²
+### Ejemplo 2: O(n²) - Complejidad cuadrática
+- Bucle simple O(n) + bucle anidado O(n²) → O(n + n²) → O(n²)
+- Termino dominante n²
+
+```python
+def example_quadratic(n, m):
+    for i in range(m):
+        print(i)
+    for i in range(n*n):
+        print(i)
+```
+
+#### Ejemplo 3: O(n²) - Complejidad cuadrática
+- Bucle anidado O(n)*O(n) = O(n²)
+- Crecimiento proporcional al cuadrado de la entrada
+
+```python
+def example_nested_loops(n):
+    for i in range(n):
+        for j in range(n):
+            print(i,j)
+```
+
+#### Ejemplo 4: O(2^n) - Complejidad exponencial
+- Función recursiva con múltiples llamadas (Fibonacci)
+- Crecimiento exponencial (árbol de recursión binario)
+
+```python
+def fibonacci(n):
+    if n == 0 or n == 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+```
+
+## Algoritmos de busqueda y ordenacion:
+El objetivo es aplicar los metodos vistos de complejidad algoritimica, y saber que ahi diferentes algoritmos para poder resolver problemas.
+
+Busqueda Lineal
+* Busca en todos los elementos de manera secuencial
+
+```python
+import random
+def linear_search(list, target):
+    found = False
+    for element in list:
+        if element == target:
+            found = True
+            break  # Optimización que no cambia la complejidad O(n)
+    return found
+
+if __name__ == "__main__":
+    list_size = int(input('¿De qué tamaño será la lista? '))
+    target = int(input('¿Qué número quieres encontrar? '))
+    list = [random.randint(0, 100) for _ in range(list_size)]
+    print(list)
+    is_found = linear_search(list, target)
+    print(f'El elemento {target} {"está" if is_found else "no está"} en la lista')
+```
+
+## Busqueda Binaria (solo para listas ordenadas)
+- Divide y conquista
+- El probelma se divide en 2 cada iteracion
+
+```python
+import random
+
+def binary_search(sorted_list, start, end, target):
+    print(f'Searching {target} between {sorted_list[start]} and {sorted_list[end-1]}')
+    if start > end:
+        return False
+    mid = (start + end) // 2
+    if sorted_list[mid] == target:
+        return True
+    elif sorted_list[mid] < target:
+        return binary_search(sorted_list, mid+1, end, target)
+    else:
+        return binary_search(sorted_list, start, mid-1, target)
+
+if __name__ == "__main__":
+    list_size = int(input('What size should the list be? '))
+    target = int(input('What number to find? '))
+    sorted_list = sorted([random.randint(0,100) for _ in range(list_size)])
+    print(sorted_list)
+    found = binary_search(sorted_list, 0, len(sorted_list), target)
+    print(f'Element {target} {"is" if found else "is not"} in the list')
+```
+
+## Ordenamiento de Burbuja:
+El ordenmiento de burbjua es un algoritmo que reccore repetidamente una lista que necesita ordenarse. compara elementos adyacentes y los intercambia si estan en el oriden incorrecto. Este procedimiento se repite hasta que no se requeiran mas intercambios, lo que indica que la lista se  encuentra ordenada
+
+```python
+import random
+
+def bubble_sort(list):
+    length = len(list)
+    for i in range(length):  # O(n) pasadas
+        for j in range(0, length - i - 1):  # O(n) comparaciones
+            if list[j] > list[j+1]:
+                # Intercambio de elementos
+                list[j], list[j+1] = list[j+1], list[j]
+    return list
+
+if __name__ == "__main__":
+    list_size = int(input('Ingrese el tamaño de la lista: '))
+    list = [random.randint(0, 100) for _ in range(list_size)]
+    print(f"Lista original: {list}")
+
+    sorted_list = bubble_sort(list.copy())  # Usamos copy() para no modificar la original
+    print(f"Lista ordenada: {sorted_list}")
+```
 
 
-        def example_quadratic(n, m):
-            for i in range(m):
-                print(i)
-            for i in range(n*n):
-                print(i)
+## Ordenamiento por inserción
+El ordenamiento por inserción es uno de los algoritmos más comunes que estudian los Científicos del Cómputo. Es intuitivo y fácil de implementar, pero es muy ineficiente para listas de gran tamaño.
+Una de las características del ordenamiento por inserción es que ordena en “su lugar.” Es decir, no requiere memoria adicional para realizar el ordenamiento ya que simplemente modifican los valores en memoria.
 
-    Ejemplo 3: O(n²) - Complejidad cuadrática
-    - Bucle anidado O(n)*O(n) = O(n²)
-    - Crecimiento proporcional al cuadrado de la entrada
+**La definición es simple:**
 
-        def example_nested_loops(n):
-            for i in range(n):
-                for j in range(n):
-                    print(i,j)
+Una lista es dividida entre una sublista ordenada y otra sublista desordenada. Al principio, la sublista ordenada contiene un solo elemento, por lo que por definición se encuentra ordenada.
+A continuación se evalua el primer elemento dentro la sublista desordenada para que podamos insertarlo en el lugar correcto dentro de la lista ordenada.
+La inserción se realiza al mover todos los elementos mayores al elemento que se está evaluando un lugar a la derecha.
+Continua el proceso hasta que la sublista desordenada quede vacia y, por lo tanto, la lista se encontrará ordenada.
 
-    Ejemplo 4: O(2^n) - Complejidad exponencial
-    - Función recursiva con múltiples llamadas (Fibonacci)
-    - Crecimiento exponencial (árbol de recursión binario)
+Veamos un ejemplo:
 
-        def fibonacci(n):
-            if n == 0 or n == 1:
-                return n
-            return fibonacci(n-1) + fibonacci(n-2)
+Imagina que tienes la siguiente lista de números:
 
-Algoritmos de busqueda y ordenacion:
-    El objetivo es aplicar los metodos vistos de complejidad algoritimica, y saber que ahi diferentes algoritmos para poder
-    resolver problemas.
+7, 3, 2, 9, 8
 
-    Busqueda Lineal
-    * Busca en todos los elementos de manera secuencial
-    * ¿Cual es el peor caso?
-    import random
+Primero añadimos 7 a la sublista ordenada:
 
-    def linear_search(list, target):
-        found = False
-        for element in list:
-            if element == target:
-                found = True
-                break  # Optimización que no cambia la complejidad O(n)
-        return found
+7, 3, 2, 9, 8
 
-    if __name__ == "__main__":
-        list_size = int(input('¿De qué tamaño será la lista? '))
-        target = int(input('¿Qué número quieres encontrar? '))
-        list = [random.randint(0, 100) for _ in range(list_size)]
-        print(list)
-        is_found = linear_search(list, target)
-        print(f'El elemento {target} {"está" if is_found else "no está"} en la lista')
+Ahora vemos el primer elemento de la sublista desordenada y lo guardamos en una variable para mantener el valor. A esa variable la llamaremos valor_actual. Verificamos que 3 es menor que 7, por lo que movemos 7 un lugar a la derecha.
 
-    Busqueda Binaria (solo para listas ordenadas)
-        * Divide y conquista
-        * El probelma se divide en 2 cada iteracion
-        * ¿Cual es el peor caso?
-        import random
+7, 7, 2, 9, 8 (valor_actual=3)
 
-        def binary_search(sorted_list, start, end, target):
-            print(f'Searching {target} between {sorted_list[start]} and {sorted_list[end-1]}')
-            if start > end:
-                return False
-            mid = (start + end) // 2
-            if sorted_list[mid] == target:
-                return True
-            elif sorted_list[mid] < target:
-                return binary_search(sorted_list, mid+1, end, target)
-            else:
-                return binary_search(sorted_list, start, mid-1, target)
+3 es menor que 7, por lo que insertamos el valor en la primera posición.
 
-        if __name__ == "__main__":
-            list_size = int(input('What size should the list be? '))
-            target = int(input('What number to find? '))
-            sorted_list = sorted([random.randint(0,100) for _ in range(list_size)])
-            print(sorted_list)
-            found = binary_search(sorted_list, 0, len(sorted_list), target)
-            print(f'Element {target} {"is" if found else "is not"} in the list')
+3, 7, 2, 9, 8
 
-    Ordenamiento de Burbuja:
-        * El ordenmiento de burbjua es un algoritmo que reccore repetidamente una lista que necesita ordenarse. compara elementos adyacentes y los intercambia si estan en el oriden incorrecto.
-          Este procedimiento se repite hasta que no se requeiran mas intercambios, lo que indica que la lista se  encuentra ordenada
+Ahora vemos el número 2. 2 es menor que 7 por lo que lo movemos un espacio a la derecha y hacemos lo mismo con 3.
 
-        import random
+3, 3, 7, 9, 8 (valor_actual=2)
 
-        def bubble_sort(list):
-            length = len(list)
-            for i in range(length):  # O(n) pasadas
-                for j in range(0, length - i - 1):  # O(n) comparaciones
-                    if list[j] > list[j+1]:
-                        # Intercambio de elementos
-                        list[j], list[j+1] = list[j+1], list[j]
-            return list
+Ahora insertamos 2 en la primera posición.
 
-        if __name__ == "__main__":
-            list_size = int(input('Ingrese el tamaño de la lista: '))
-            list = [random.randint(0, 100) for _ in range(list_size)]
-            print(f"Lista original: {list}")
+2, 3, 7, 9, 8
 
-            sorted_list = bubble_sort(list.copy())  # Usamos copy() para no modificar la original
-            print(f"Lista ordenada: {sorted_list}")
+9 es más grande que el valor más grande de nuestra sublista ordenada por lo que lo insertamos directamente en su posición.
 
+2, 3, 7, 9, 8
 
-    Ordenamiento por inserción
-        El ordenamiento por inserción es uno de los algoritmos más comunes que estudian los Científicos del Cómputo. Es intuitivo y fácil de implementar, pero es muy ineficiente para listas de gran tamaño.
-        Una de las características del ordenamiento por inserción es que ordena en “su lugar.” Es decir, no requiere memoria adicional para realizar el ordenamiento ya que simplemente modifican los valores en memoria.
+El último valor es 8. 9 es más grande que 8 por lo que lo movemos a la derecha:
 
-        La definición es simple:
+2, 3, 7, 9, 9 (valor_actual=8)
 
-            Una lista es dividida entre una sublista ordenada y otra sublista desordenada. Al principio, la sublista ordenada contiene un solo elemento, por lo que por definición se encuentra ordenada.
+8 es más grande que 7, por lo que procedemos a insertar nuestro valor_actual.
 
-            A continuación se evalua el primer elemento dentro la sublista desordenada para que podamos insertarlo en el lugar correcto dentro de la lista ordenada.
+2, 3, 7, 8, 9
 
-            La inserción se realiza al mover todos los elementos mayores al elemento que se está evaluando un lugar a la derecha.
-
-            Continua el proceso hasta que la sublista desordenada quede vacia y, por lo tanto, la lista se encontrará ordenada.
-
-        Veamos un ejemplo:
-
-            Imagina que tienes la siguiente lista de números:
-
-                7, 3, 2, 9, 8
-
-            Primero añadimos 7 a la sublista ordenada:
-
-                7, 3, 2, 9, 8
-
-            Ahora vemos el primer elemento de la sublista desordenada y lo guardamos en una variable para mantener el valor. A esa variable la llamaremos valor_actual. Verificamos que 3 es menor que 7, por lo que movemos 7 un lugar a la derecha.
-
-                7, 7, 2, 9, 8 (valor_actual=3)
-
-            3 es menor que 7, por lo que insertamos el valor en la primera posición.
-
-                3, 7, 2, 9, 8
-
-            Ahora vemos el número 2. 2 es menor que 7 por lo que lo movemos un espacio a la derecha y hacemos lo mismo con 3.
-
-                3, 3, 7, 9, 8 (valor_actual=2)
-
-            Ahora insertamos 2 en la primera posición.
-
-                2, 3, 7, 9, 8
-
-            9 es más grande que el valor más grande de nuestra sublista ordenada por lo que lo insertamos directamente en su posición.
-
-                2, 3, 7, 9, 8
-
-            El último valor es 8. 9 es más grande que 8 por lo que lo movemos a la derecha:
-
-                2, 3, 7, 9, 9 (valor_actual=8)
-
-            8 es más grande que 7, por lo que procedemos a insertar nuestro valor_actual.
-
-                2, 3, 7, 8, 9
-
-            Ahora la lista se encuentra ordenada y no quedan más elementos en la sublista
-            desordenada.
+Ahora la lista se encuentra ordenada y no quedan más elementos en la sublista
+desordenada.
 
 
             import random
