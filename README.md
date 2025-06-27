@@ -461,131 +461,134 @@ Llamada al método setter
 De esta manera usamos el decorador **@property** para utilizar getters y setters de una forma más prolija e incluimos una nueva funcionalidad a nuestro método definir_distancia(), al mismo tiempo protegemos el acceso a nuestras variables privadas y cumplimos  con el principio de encapsulación.
 
 
-Encapsulación
+## Encapsulación
 
-        Permite agrupar datos y su comportamiento
-        Controla el acceso a dichos datos
-        Previene modificaciones no autorizadas
+- Permite agrupar datos y su comportamiento.
+- Controla el acceso a dichos datos.
+- Previene modificaciones no autorizadas.
 
-            class VotingBooth:
+```python
+class VotingBooth:
 
-                def __init__(self, id, country):
-                    self._id = id
-                    self._country = country
-                    self._region = None
+    def __init__(self, id, country):
+        self._id = id
+        self._country = country
+        self._region = None
 
-                @property
-                def region(self):
-                    """Getter para la región (fget)"""
-                    return self._region
+    @property
+    def region(self):
+        """Getter para la región (fget)"""
+        return self._region
 
-                @region.setter
-                def region(self, region):
-                    """Setter con validación (fset)
-                    Raises:
-                        ValueError: Si la región no existe en el país
-                    """
-                    if region in self._country:
-                        self._region = region
-                    else:
-                        raise ValueError(f'La región {region} no es válida en {self._country}')
+    @region.setter
+    def region(self, region):
+        """Setter con validación (fset)
+        Raises:
+            ValueError: Si la región no existe en el país
+        """
+        if region in self._country:
+            self._region = region
+        else:
+            raise ValueError(f'La región {region} no es válida en {self._country}')
 
-            if __name__ == "__main__":
-                # Prueba de funcionamiento
-                booth = VotingBooth(123, ['Ciudad de México', 'Morelos'])
-                print(f"Región inicial: {booth._region}")
+if __name__ == "__main__":
+    # Prueba de funcionamiento
+    booth = VotingBooth(123, ['Ciudad de México', 'Morelos'])
+    print(f"Región inicial: {booth._region}")
 
-                # Asignación válida
-                booth.region = 'Ciudad de México'
-                print(f"Región asignada: {booth.region}")
+    # Asignación válida
+    booth.region = 'Ciudad de México'
+    print(f"Región asignada: {booth.region}")
 
-                # Intento de asignación inválida
-                try:
-                    booth.region = 'Jalisco'
-                except ValueError as e:
-                    print(f"Error: {e}")
+    # Intento de asignación inválida
+    try:
+        booth.region = 'Jalisco'
+    except ValueError as e:
+        print(f"Error: {e}")
+```
+
+## Herencia:
+- Permite modelar una jerarquia de objetos (clases).
+- Permite comparir comportamiento comun en la jerarquia.
+- Al padre se le conoce como superclases y al hijo como subclase.
+  
+```python
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+class Square(Rectangle):
+    def __init__(self, side):
+        super().__init__(side, side)  # Llama al constructor de Rectangle
+
+if __name__ == "__main__":
+    # Demostración con rectángulo
+    rectangle = Rectangle(width=3, height=4)
+    print(f"Área del rectángulo: {rectangle.area()}")
+
+    # Demostración con cuadrado (usa herencia)
+    square = Square(side=5)
+    print(f"Área del cuadrado: {square.area()}")
+```
+
+## Polimorfismo
+- Es la habilidad de tomar varias formas.
+- En python nor permite cambiar el comportamiento de una superclase para adaptarlo en la subclase.
+
+```python
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def move(self):
+        print(f'{self.name} está caminando')
+
+class Cyclist(Person):
+    def __init__(self, name):
+        super().__init__(name)  #Llama al constructor de Person
+
+    def move(self):  # Sobreescribe el método de Person
+        print(f'{self.name} está moviéndose en bicicleta')
+
+def main():
+    # Demostración de polimorfismo
+    person = Person('David')
+    person.move()  # Output: David esta caminando
+
+    cyclist = Cyclist('Daniel')
+    cyclist.move()  #Output: Daniel está en bicicleta
+
+    # Polimorfismo en acción
+    for character in [person, cyclist]:
+        character.move()  # Mismo método, comportamientos diferentes
+
+if __name__ == "__main__":
+    main()
+```
+
+## COMPLEJIDAD ALGORITMICA (Big O Notation)
+
+- ¿Por que comparamos la eficiencia de un algoritmo? Porque en la realidad hay billones de datos por analizar, a la hora de procesos grandes la eficiencia es muy importante.
+-  Complejidad temporal vs complejodad espacial (procesamiento, espacio en memoria)
+-  Podemos definirla como t(n)
+
+### CLases de complejidad algoritmica
+
+- O(1) : Constante
+- O(n) : Lineal
+- O(Log n) : Logaritmica
+- O(n log n): Logaritmica Lineal
+- O(n**2): Polinomial o cuadratica
+- O(2**n): Exponencial
 
 
-    Herencia:
- 
-        Permite modelas una jerarquia de objetos (clases)
-        Permite comparir comportamiento comun en la jerarquia.
-        Al padre se le conoce como superclases y al hijo como subclase.
-
-        class Rectangle:
-            def __init__(self, width, height):
-                self.width = width
-                self.height = height
-
-            def area(self):
-                return self.width * self.height
-
-        class Square(Rectangle):
-            def __init__(self, side):
-                super().__init__(side, side)  # Llama al constructor de Rectangle
-
-        if __name__ == "__main__":
-            # Demostración con rectángulo
-            rectangle = Rectangle(width=3, height=4)
-            print(f"Área del rectángulo: {rectangle.area()}")
-
-            # Demostración con cuadrado (usa herencia)
-            square = Square(side=5)
-            print(f"Área del cuadrado: {square.area()}")
-
-    Polimorfismo
-        *Es la habilidad de tomar varias formas
-        * En python nor permite cambiar el comportamiento de una superclase para adaptarlo en la subclase.
-
-        class Person:
-            def __init__(self, name):
-                self.name = name
-
-            def move(self):
-                print(f'{self.name} está caminando')
-
-        class Cyclist(Person):
-            def __init__(self, name):
-                super().__init__(name)  #Llama al constructor de Person
-
-            def move(self):  # Sobreescribe el método de Person
-                print(f'{self.name} está moviéndose en bicicleta')
-
-        def main():
-            # Demostración de polimorfismo
-            person = Person('David')
-            person.move()  # Output: David esta caminando
-
-            cyclist = Cyclist('Daniel')
-            cyclist.move()  #Output: Daniel está en bicicleta
-
-            # Polimorfismo en acción
-            for character in [person, cyclist]:
-                character.move()  # Mismo método, comportamientos diferentes
-
-        if __name__ == "__main__":
-            main()
-COMPLEJIDAD ALGORITMICA (Big O Notation)
-
-
-
-
-        * ¿Por que comparamos la eficiencia de un algoritmo? Poruqe en la realidad hay billones de datos por analisar, a la hora de proceoss grandes la eficiencia es muy importante
-        * Complejidad temporal vs complejodad espacial (procesamiento, espacio en memoria)
-        * Podemos definirla como t(n)
-
-    Clases de complejidad algoritmicca
-        * O(1) : Constante
-        * O(n) : Lineal
-        * O(Log n) : Logaritmica
-        * O(n log n): Logaritmica Lineal
-        * O(n**2): Polinomial o cuadratica
-        * O(2**n): Exponencial
-
-
-    Ejemplo 1: O(n) - Complejidad lineal
-    - Dos bucles simples O(n) + O(n) = O(2n) → Simplificado a O(n)
-    - Crecimiento proporcional al tamaño de entrada
+  #### Ejemplo 1: O(n) - Complejidad lineal
+  - Dos bucles simples O(n) + O(n) = O(2n) → Simplificado a O(n)
+  - Crecimiento proporcional al tamaño de entrada
 
         def example_linear(n):
             for i in range(n):
