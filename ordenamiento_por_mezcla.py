@@ -1,50 +1,60 @@
+"""
+ORDENAMIENTO POR MEZCLA: Implementación del algoritmo Merge Sort recursivo.
+Conceptos clave:
+- Algoritmo O(n log n) (divide y vencerás)
+- Recursividad (llamadas a sí mismo)
+- Fusión (merge) de sublistas ordenadas
+
+"""
+
 import random
-def ordenamiento_por_mezcla (lista):
 
-    if len(lista) > 1:
+def merge_sort(list):
+    if len(list) > 1:
+        mid = len(list) // 2
+        left = list[:mid]
+        right = list[mid:]
+        print(left, '*'*8, right)
 
-        medio= len(lista)//2
-        izquierda=lista[:medio]
-        derecha=lista[medio:]
-        print(izquierda,'*'*8, derecha )
+        # Llamadas recursivas
+        merge_sort(left)
+        merge_sort(right)
 
-        #llamada recursiva en cada mitad (se ejecuta hassta que tengamos lista de 1 solo tamaño)
-        ordenamiento_por_mezcla(izquierda)
-        ordenamiento_por_mezcla(derecha)
-        #iteradores para recorrer las sublistas
-        i=0
-        j=0
-        #iterador para la lista principal
-        k=0
+        # Fusionar las sublistas
+        i = j = k = 0
 
-        while i < len(izquierda) and j < len(derecha):
-            if izquierda[i] < derecha[j]:
-                lista[k] = izquierda[i]
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                list[k] = left[i]
                 i += 1
             else:
-                lista[k]=derecha[i]
+                list[k] = right[j]  # Corregido error (antes era derecha[i])
                 j += 1
             k += 1
-        while i < len(izquierda):
-            lista[k]=izquierda[i]
+
+        # Elementos restantes de izquierda
+        while i < len(left):
+            list[k] = left[i]
             i += 1
             k += 1
 
-        while j < len(derecha):
-            lista[k]=derecha[j]
-            j  += 1
+        # Elementos restantes de derecha
+        while j < len(right):
+            list[k] = right[j]
+            j += 1
             k += 1
 
-        print(f'Izquierda   {izquierda}     Derecha  {derecha}')
-        print(lista)
-        print('*'*40)
+        print(f'Left {left}     Right {right}')
+        print(list)
+        print('*' * 40)
 
-    return lista 
-    
+    return list
+
 if __name__ == "__main__":
-    tamano_lista=int(input('Ingrese el tamaño de la lista: '))
-    lista=[random.randint(0,100) for i in range(tamano_lista)]
-    print(lista)
-    print('-'*20)
-    lista_ordenada = ordenamiento_por_mezcla(lista)
-    print(lista_ordenada)
+    list_size = int(input('Ingrese el tamaño de la lista: '))
+    list = [random.randint(0, 100) for _ in range(list_size)]
+    print("Lista original:", list)
+    print('-' * 20)
+
+    sorted_list = merge_sort(list.copy())
+    print("Lista ordenada:", sorted_list)

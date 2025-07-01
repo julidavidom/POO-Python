@@ -1,24 +1,33 @@
-'''
-Cuales son los elementos que caben en mi mochila que me otorgan el
-mayor valor posible. 
- 
-Como no podemos subdividr nuestros elementos necesitamos escoger o no escer un archivo.
-'''
+"""
+PROBLEMA DE LA MOCHILA (0/1): Solución recursiva para maximizar valor sin exceder capacidad.
+Conceptos clave:
+- Programación dinámica (memoization implícita)
+- Recursividad (llamadas anidadas)
+- Decisión binaria (tomar o no tomar cada elemento)
+"""
 
-def morral (tamaño_morral, pesos, valores, n ): #n es el indice que vamos a estar trabajando
-    if n == 0 or tamaño_morral==0: # si y no tenemos mas elementos, o si e tamaño del morra es 0(lleno).
+def knapsack(capacity, weights, values, current_index):
+    # Caso base: no hay elementos o no queda espacio
+    if current_index == 0 or capacity == 0:
         return 0
 
-    if pesos[n-1] > tamaño_morral: # si  el elemento que quiero meter al morral pesa mas que el tamaño que me queda del morral 
-        return morral(tamaño_morral, pesos , valores, n-1) # funcion recursiva que toma el valor
-    #puedo tomar o no tomar el elemento. SI yo tomo un valor ¿que valor tendria?  comparandolo con otro 
-    return max(valores[n-1] + morral(tamaño_morral - pesos[n-1], pesos,valores, n-1 ), morral(tamaño_morral,pesos,valores,n-1)) # si si tengo espacio para el elemento, escoge el valor mas alto
+    # Si el peso del elemento actual excede la capacidad disponible
+    if weights[current_index-1] > capacity:
+        return knapsack(capacity, weights, values, current_index-1)
 
+    # Maximizar entre:
+    # 1. Tomar el elemento actual + mejor solución del resto
+    # 2. No tomar el elemento actual
+    return max(
+        values[current_index-1] + knapsack(capacity-weights[current_index-1], weights, values, current_index-1),
+        knapsack(capacity, weights, values, current_index-1)
+    )
 
 if __name__ == "__main__":
-    valores=[60, 100,120]s
-    pesos=[10,20,30]
-    tamaño_morral= 50
-    n = len (valores)
-    resultado = morral(tamaño_morral, pesos, valores, n)
-    print(resultado)
+    values = [60, 100, 120]  # Valores de los items
+    weights = [10, 20, 30]   # Pesos de los items
+    capacity = 50            # Capacidad máxima de la mochila
+    n = len(values)          # Cantidad total de items
+
+    max_value = knapsack(capacity, weights, values, n)
+    print(f"El valor máximo obtenible es: {max_value}")

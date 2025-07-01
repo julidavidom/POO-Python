@@ -1,30 +1,33 @@
-'''
-sE UTILIZAN CALSES PARA DECOMPONER UN PROBLEMA EN PROBLEMAS 
-MAS PEQUEÑOS
+"""
+MODELADO DE AUTOMÓVIL: Demostración de composición de clases para modelar sistemas complejos.
 
-'''
-class Automovil:
-    def __init__(self, modelo, marca, color):
-        self.modelo=modelo
-        self.marca=marca
-        self.color= color
-        self._estado='En reposo' #varible privada
-        self._motor = Motor(cilindros=4)
+POO aplicado:
+- Composición (Automovil contiene un Motor)
+- Encapsulamiento (variables privadas _estado, _motor, _temperatura)
+- Delegación de comportamiento (acelerar delega al motor) 
+"""
+
+class Car:
+    def __init__(self, model, brand, color):
+        self.model = model
+        self.brand = brand
+        self.color = color
+        self._status = 'stopped'  # Variable privada
+        self._engine = Engine(cylinders=4)  # Composición
     
-    def acelerar(self, tipo='despacio'):
-        if tipo== 'rapida':
-            self._motor.inyecta_gasolina(10)
+    def accelerate(self, mode='slow'):
+        if mode == 'fast':
+            self._engine.inject_gasoline(10)
         else:
-            self._motor.inyecta_gasolina(3)
+            self._engine.inject_gasoline(3)
+        self._status = 'moving'
 
+class Engine:
+    def __init__(self, cylinders, type='gasoline'):
+        self.cylinders = cylinders
+        self.type = type
+        self._temperature = 0
     
-
-
-class Motor:
-    def __init__(self, cilindros, tipo='Gasolina'):
-         self.cilindros=cilindros
-         self.tipo=tipo
-         self._temperatura=0
-
-    def inyecta_gasolina(self, cantidad):
-        pass
+    def inject_gasoline(self, amount):
+        """Simula inyección de combustible"""
+        self._temperature += amount * 2  # Aumento simulado de temperatura

@@ -1,31 +1,33 @@
-'''
-Tomar el tiempo es rasonable para medir un algoritmo, pero hay muchosfactores que no se 
-controlan. 
+"""
+ANÁLISIS DE COMPLEJIDAD: Contando operaciones para determinar crecimiento de función.
+Conceptos clave:
+- Conteo de operaciones básicas
+- Identificación de términos dominantes
+- Big O notation (simplificación de complejidad)
 
-Para hacer una aproximacion mas sercana de como va a crecer nuestra funcion.
+Ecuación de operaciones:
 
-Queremos contar que esta pasando dentro de nuestro programa.
-'''
+    f(n) = 1000 + n + 2n²
 
-def f(x):
-    respuesta = 0   #aca esta nuestro primer paso '''
-    for i in range (1000): #no depende de x, esto correra 1000 veces'''
-        respuesta += 1
-    for i in range (x): #si depende de x''' 
-        respuesta += x
-    for i in range (x): 
-        for j in range (x): #cuado hay un for dentro de otro quiere decir que el primer bucle empiza el el primer dato de i , posterioreme recorre todos los datos de j,  y realiza la misma operacion desde el segundo dato de i'''
-            respuesta += 1
-            respuesta += 1  # estamos generando 2 operaciones, y estamos recoriendo dos veces x.
-        return respuesta
+El bucle anidado domina el crecimiento para valores grandes de n.
+"""
 
-'''
-Podemos representar esto en una ecuacion
+def count_operations(input_size):
+    total_operations = 0  # 1 operación inicial
 
-F(X)=1002 + x + 2x^2
+    # Bucle independiente del input (1000 operaciones)
+    for _ in range(1000):
+        total_operations += 1
 
-Podemos inferir  que los procesos que mas estan generando 
-proceso es el bucle for doble, que representa 2x^2.
+    # Bucle lineal O(n)
+    for _ in range(input_size):
+        total_operations += 1
 
-para olvidarnos de los terminos que no importan utilizaremos e metodo Big O notacion
-'''
+    # Bucle anidado cuadrático O(n²)
+    for _ in range(input_size):
+        for __ in range(input_size):
+            total_operations += 1  # 1ra operación
+            total_operations += 1  # 2da operación
+
+    return total_operations
+

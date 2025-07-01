@@ -1,28 +1,36 @@
-'''
-Programa para entender el polimorfismo.
-'''
-class Persona() :
-    def __init__(self, nombre):
-        self.nombre=nombre
+"""
+POLIMORFISMO: Demostración de cómo objetos de diferentes clases responden al mismo mensaje.
+POO aplicado:
+- Herencia (Ciclista hereda de Persona)
+- Polimorfismo (mismo método, comportamientos diferentes)
+- Sobreescritura de métodos (override)
+"""
 
-    def avanza(self):
-        print('Ando caminando')
+class Person:
+    def __init__(self, name):
+        self.name = name
 
-class Ciclista( Persona): #  Clase ciclista extiende clase persona
-    def __init__(self,nombre): # tenemos un referencia a la super clase
-        super().__init__(nombre)
+    def move(self):
+        print(f'{self.name} está caminando')
 
-    def avanza (self): 
-        print ('Ando moviendome en mi bicicleta ') #aca lafuncion avanza es diferente a la de la calse perosona, esto es la ventaja del polimorfismo
+class Cyclist(Person):
+    def __init__(self, name):
+        super().__init__(name)  # Llama al constructor de Person
 
+    def move(self):  # Sobreescribe el método de Person
+        print(f'{self.name} está moviéndose en bicicleta')
 
 def main():
-    persona=Persona('David')
-    persona.avanza()
-    ciclista = Ciclista('Daniel')
-    ciclista.avanza()
+    # Demostración de polimorfismo
+    person = Person('David')
+    person.move()  # Output: Está caminando
 
-    
+    cyclist = Cyclist('Daniel')
+    cyclist.move()  # Output: Está en bicicleta
+
+    # Polimorfismo en acción
+    for character in [person, cyclist]:
+        character.move()  # Mismo método, comportamientos diferentes
 
 if __name__ == "__main__":
     main()

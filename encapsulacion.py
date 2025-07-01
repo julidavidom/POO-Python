@@ -1,32 +1,46 @@
-'''
-La fucion interna de python property determina cuatro atributos, 
-            fget : trae el valor de un atributo.
-            fset : define el valor de un atributo.
-            fdel : elimina el valor de un atributo.
-            fdoc : crea un docstring por atributo.
+"""
+CASILLA DE VOTACIÓN: Demostración del uso de properties para validación de atributos.
+POO aplicado:
+- Encapsulamiento (atributos protegidos con _)
+- Properties (getter/setter con validación)
+- Validación de datos (región debe pertenecer al país)
+"""
 
-'''
+class VotingBooth:
 
-class Casilladevotacion:
-
-    def __init__(self, identificador, pais):
-        self._identificador = identificador
-        self._pais = pais
+    def __init__(self, id, country):
+        self._id = id
+        self._country = country
         self._region = None
 
-        @property                      #TRAE EL VALOR DEL ATRIBUTO REGION
-        def region(self):
-            return self._region
+    @property
+    def region(self):
+        """Getter para la región (fget)"""
+        return self._region
 
-        @region.setter
-        def region(self, region):      #DEFINE  El VALOR DE EL ATRIBUTO REGION
-            if region in self._pais:
-                self._region=region
-            raise ValueError(f'La region {region} no es valida en {self._pais}')
+    @region.setter
+    def region(self, region):
+        """Setter con validación (fset)
+        Raises:
+            ValueError: Si la región no existe en el país
+        """
+        if region in self._country:
+            self._region = region
+        else:
+            raise ValueError(f'La región {region} no es válida en {self._country}')
 
 if __name__ == "__main__":
-    casilla = Casilladevotacion(123,['Ciudad de mexico', 'Morelos'])
-    print(casilla._region)
-    casilla.region='Ciudad de mexico'
-    print(casilla.region)
+    # Prueba de funcionamiento
+    booth = VotingBooth(123, ['Ciudad de México', 'Morelos'])
+    print(f"Región inicial: {booth._region}")
+
+    # Asignación válida
+    booth.region = 'Ciudad de México'
+    print(f"Región asignada: {booth.region}")
+
+    # Intento de asignación inválida
+    try:
+        booth.region = 'Jalisco'
+    except ValueError as e:
+        print(f"Error: {e}")
 

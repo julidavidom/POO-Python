@@ -1,21 +1,33 @@
-class Rectangulo:
+"""
+HERENCIA GEOMÉTRICA: Demostración de herencia en POO donde Cuadrado hereda de Rectángulo.
+POO aplicado:
 
-    def __init__(self , base , altura):
-        self.base= base
-        self.altura= altura
+- Herencia (Cuadrado es subclase de Rectangulo)
+- Reutilización de código (método area heredado)
+- Llamado a superclase (super().__init__)
+
+"""
+
+class Rectangle:
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
 
     def area(self):
-        return self.base * self.altura
+        """Calcula área del rectángulo"""
+        return self.width * self.height
 
 
-class Cuadrado (Rectangulo): # La clase cuadrado extiende a la calse rectangulo , heredamos el comportamieno, Rectanglo es la super clase. 
-    def __init__(self, lado):
-        super().__init__(lado,lado)#super nos permite optener  una referenca directa de la super clase Rectagunlo
+class Square(Rectangle):  # Square hereda de Rectangle
+    def __init__(self, side):
+        super().__init__(side, side)  # Llama al constructor de Rectangle
 
- 
 if __name__ == "__main__":
-    rectangulo = Rectangulo(base=3, altura=4)
-    print (rectangulo.area())
+    # Demostración con rectángulo
+    rectangle = Rectangle(width=3, height=4)
+    print(f"Área del rectángulo: {rectangle.area()}")
 
-    cuadrado= Cuadrado(lado=5)
-    print(cuadrado.area())    #Estamos utilizando el metodo area  dentro de nuestra calse cuadrado, aunque no lo emos definido, es decir, estamos heredando un metodo.
+    # Demostración con cuadrado (usa herencia)
+    square = Square(side=5)
+    print(f"Área del cuadrado: {square.area()}")  # Método heredado

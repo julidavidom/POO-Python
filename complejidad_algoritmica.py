@@ -1,42 +1,41 @@
-'''
-Gernerar el factorial  de un numero.
-
-Generaremos a implementacion iterativa y una recursiva
- Asi compararemos las dos implementaciones.
-
-'''
+"""
+CÁLCULO DE FACTORIAL: Comparación de implementación iterativa vs recursiva.
+Conceptos clave:
+- Recursividad (función que se llama a sí misma)
+- Iteración (bucle while)
+- Análisis de rendimiento (complejidad O(n) en ambos casos)
+"""
 
 import time
 import sys
 
+def factorial_iterative(number):
+    result = 1
+    while number > 1:
+        result *= number
+        number -= 1
+    return result
 
-def factorial(n):
-    respuesta=1
-    while n > 1:
-        respuesta = respuesta*n
-        n=n-1
-    return respuesta
-   
-
-def factorial_recursivo(n):
-    if n == 1 : 
+def recursive_factorial(number):
+    if number == 1:
         return 1
-    return n*factorial_recursivo(n-1)
-    
-    
+    return number * recursive_factorial(number - 1)
 
 if __name__ == "__main__":
-    sys.setrecursionlimit(100000) #definimos un valor mayor de recursibidad
-    n = 10000
+    sys.setrecursionlimit(100000)  # Aumentamos el límite de recursión
 
-    comienzo1= time.time()
-    factorial(n)
-    final2 = time.time()
-    print(final-comienzo)
+    number = 10000  # Número para calcular factorial
 
-    comienzo= time.time()
-    factorial_recursivo(n)
-    final= time.time()
-    print(final-comienzo)
+    # Medición tiempo versión iterativa
+    start_time = time.time()
+    factorial_iterative(number)
+    end_time = time.time()
+    print(f"Tiempo iterativo: {end_time - start_time} segundos")
+
+    # Medición tiempo versión recursiva
+    start_time = time.time()
+    recursive_factorial(number)
+    end_time = time.time()
+    print(f"Tiempo recursivo: {end_time - start_time} segundos")
 
 

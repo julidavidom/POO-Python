@@ -1,28 +1,38 @@
-class Lavadora:
+"""
+ABSTRACCIÓN: Modela una lavadora ocultando detalles internos.
+POO aplicado:
+- Abstracción (simplifica la realidad)
+- Encapsulamiento (métodos privados __)
+- Interfaz pública (método 'lavar')
+"""
+
+class WashingMachine:
 
     def __init__(self):
         pass
 
-    def lavar(self, temperatura='caliente'):
-        self.__llenar_tanque_de_agua(temperatura)
-        self.__añadir_jabon()
-        self.__lavar()
-        self.__centrifugar()
+    def wash(self, temperature='hot'):
+        self.__fill_water_tank(temperature)
+        self.__add_soap()
+        self.__wash_clothes()
+        self.__spin()
 
-    def __llenar_tanque_de_agua (self, temperatura_agua):
-        print(f'Llenando el tanque con agua {temperatura_agua}')
-    def __añadir_jabon(self):
-        print(f'Añadiendo jabon')
-    def __lavar (self):
-        print(f'Lavando')
-    def __centrifugar(self):
-        print(f'Centrifugando')
-        
- 
+    def __fill_water_tank(self, water_temperature):
+        print(f'Filling tank with {water_temperature} water')
+
+    def __add_soap(self):
+        print(f'Adding soap')
+
+    def __wash_clothes(self):
+        print(f'Washing clothes')
+
+    def __spin(self):
+        print(f'Spinning')
+
 
 if __name__ == "__main__":
-    lavadora = Lavadora()
-    lavadora.lavar()
+    washer = WashingMachine()
+    washer.wash()
 
 
 
