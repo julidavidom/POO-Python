@@ -578,7 +578,7 @@ if __name__ == "__main__":
 - O(2**n): Exponencial
 
 
-  ### Ejemplo 1: ```O(n)``` – Complejidad lineal
+  #### Ejemplo 1: ```O(n)``` – Complejidad lineal
 - Dos bucles simples: ```O(n) + O(n) = O(2n)``` → se simplifica a ```O(n)```
 - El crecimiento es proporcional al tamaño de la entrada.
 
@@ -590,7 +590,7 @@ def example_linear(n):
         print(i)
 ```
 
-### Ejemplo 2:  ```O(n²)``` – Complejidad cuadrática
+#### Ejemplo 2:  ```O(n²)``` – Complejidad cuadrática
 - Bucle simple ```O(m)``` + bucle anidado ```O(n²)``` → ```O(m + n²)``` → si m ≈ n, se simplifica a ```O(n²)```
 - El término dominante es ```n²```.
 
