@@ -651,7 +651,7 @@ if __name__ == "__main__":
     print(f'El elemento {target} {"está" if is_found else "no está"} en la lista')
 ```
 
-## Búsqueda Binaria (solo para listas ordenadas)
+### Búsqueda Binaria (solo para listas ordenadas)
 - Aplica la estrategia de divide y vencerás.
 - En cada iteración, reduce el problema a la mitad, comparando con el valor medio.
 - Mucho más eficiente que la búsqueda lineal, pero requiere que la lista esté ordenada.
@@ -681,7 +681,7 @@ if __name__ == "__main__":
     print(f'Element {target} {"is" if found else "is not"} in the list')
 ```
 
-## Ordenamiento de Burbuja
+### Ordenamiento de Burbuja
 - Recorre repetidamente la lista y compara elementos adyacentes, intercambiándolos si están en el orden incorrecto.
 - Este proceso se repite hasta que no se requieren más intercambios, indicando que la lista está ordenada.
 - Es simple de entender pero poco eficiente en listas grandes.
@@ -708,7 +708,7 @@ if __name__ == "__main__":
     print(f"Lista ordenada: {sorted_list}")
 ```
 
-## Ordenamiento por inserción
+### Ordenamiento por inserción
 El ordenamiento por inserción es uno de los algoritmos más sencillos y conocidos en informática. Es ideal para aprender los fundamentos de algoritmos de ordenamiento debido a su lógica intuitiva y su implementación directa. Sin embargo, no es eficiente para listas grandes, ya que su rendimiento disminuye a medida que crece la cantidad de datos.
 
 Una de las características del ordenamiento por inserción es que ordena "en el lugar.” Es decir, no requiere memoria adicional para realizar el ordenamiento ya que simplemente modifican los valores en memoria.
@@ -789,7 +789,7 @@ if __name__ == "__main__":
     sorted_list = insertion_sort(list.copy())  # Usamos copy() para no modificar la original
     print(f"Lista ordenada: {sorted_list}")
 ```
-## Ordenamiento por Mezcla (Merge Sort)
+### Ordenamiento por Mezcla (Merge Sort)
 El ordenamiento por mezcla es un algoritmo clásico basado en la estrategia de "divide y vencerás". A diferencia del ordenamiento por inserción, este enfoque no ordena en su lugar, sino que divide la lista en partes más pequeñas, las ordena individualmente y luego las fusiona de forma ordenada.
 
 ### ¿Cómo funciona?
