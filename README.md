@@ -577,8 +577,8 @@ if __name__ == "__main__":
 - O(n**2): Polinomial o cuadratica
 - O(2**n): Exponencial
 
+#### Ejemplo 1: ```O(n)``` – Complejidad lineal
 
-  #### Ejemplo 1: ```O(n)``` – Complejidad lineal
 - Dos bucles simples: ```O(n) + O(n) = O(2n)``` → se simplifica a ```O(n)```
 - El crecimiento es proporcional al tamaño de la entrada.
 
