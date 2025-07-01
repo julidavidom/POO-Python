@@ -713,7 +713,7 @@ El ordenamiento por inserción es uno de los algoritmos más sencillos y conocid
 
 Una de las características del ordenamiento por inserción es que ordena "en el lugar.” Es decir, no requiere memoria adicional para realizar el ordenamiento ya que simplemente modifican los valores en memoria.
 
-### Cómo funciona?
+**Cómo funciona?**
 El algoritmo divide la lista en dos partes:
 - Una sublista ordenada (al principio solo contiene un elemento).
 - Una sublista desordenada (el resto de la lista).
@@ -721,7 +721,7 @@ El algoritmo divide la lista en dos partes:
 El proceso consiste en tomar uno a uno los elementos de la sublista desordenada e insertarlos en la posición correcta dentro de la sublista ordenada.
 
 
-### Paso a paso:
+**Paso a paso**:
 1. Consideramos el primer elemento como la sublista ordenada.
 2. Tomamos el siguiente elemento (al que llamaremos ```valor_actual```).
 4. Lo comparamos con los elementos anteriores.
@@ -729,7 +729,7 @@ El proceso consiste en tomar uno a uno los elementos de la sublista desordenada 
 6. Insertamos ```valor_actual``` en la posición correcta.
 7. Repetimos hasta que toda la lista esté ordenada.
 
-### Ejemplo
+**Ejemplo**
 Dada la lista:
 ```csharp
 [7, 3, 2, 9, 8]
@@ -761,7 +761,7 @@ Iteración 4:
 [2, 3, 7, 8, 9]
 ```
 
-### Implementación en Python
+**Implementación en Python**
 
 ```python
 import random
@@ -792,13 +792,11 @@ if __name__ == "__main__":
 ### Ordenamiento por Mezcla (Merge Sort)
 El ordenamiento por mezcla es un algoritmo clásico basado en la estrategia de "divide y vencerás". A diferencia del ordenamiento por inserción, este enfoque no ordena en su lugar, sino que divide la lista en partes más pequeñas, las ordena individualmente y luego las fusiona de forma ordenada.
 
-### ¿Cómo funciona?
+**¿Cómo funciona?**
 
-Dividir:
-- La lista original se divide recursivamente en dos mitades hasta obtener sublistas de 1 o 0 elementos (las cuales, por definición, ya están ordenadas).
+- Dividir: La lista original se divide recursivamente en dos mitades hasta obtener sublistas de 1 o 0 elementos (las cuales, por definición, ya están ordenadas).
 
-Conquistar (Ordenar y combinar):
-- Luego, esas sublistas se van fusionando dos a dos, comparando elementos y construyendo nuevas listas ordenadas hasta reconstruir la lista original completamente ordenada.
+- Conquistar (Ordenar y combinar): Luego, esas sublistas se van fusionando dos a dos, comparando elementos y construyendo nuevas listas ordenadas hasta reconstruir la lista original completamente ordenada.
 
 Este algoritmo tiene una complejidad temporal de O(n log n) en todos los casos, lo que lo hace muy eficiente para listas grandes.
 
